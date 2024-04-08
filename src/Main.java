@@ -24,15 +24,16 @@ public class Main {
 
         System.out.println("Seja bem-vindo à lanchonete creimbergx.");
         System.out.println("=*=*=*=*=*=*=*=*  CARDÁPIO  =*=*=*=*=*=*=*=*");
-        System.out.println("\n");
+
+        System.out.printf("%-10s %-20s %-10s\n", "Código", "Lanche", "Preço");
         for (Lanche lanche : lanches) {
-            System.out.print("Código " + lanche.getCodigo() + " ");
-            System.out.print("Lanche " + lanche.getEspecificacao() + " ");
-            System.out.print("Preço "  + lanche.getPreco());
-            System.out.println("\n");
+            System.out.printf("%-10s %-20s %-10s\n",
+                    lanche.getCodigo(),
+                    lanche.getEspecificacao(),
+                    NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(lanche.getPreco()));
         }
 
-        System.out.println("------------------------------------------");
+        System.out.println("=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*=*");
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Insira o código do lanche que deseja: ");
@@ -107,7 +108,7 @@ public class Main {
                 System.out.printf("%-10s %-20s %-10s\n",
                         pedido.getQuantidadeDeLanches() + "x",
                         pedido.getLanche().getEspecificacao(),
-                        NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedido.getValor()));;
+                        NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(pedido.getValor()));
                 totalDoPedido += pedido.getValor();
             }
             System.out.printf("%-31s %-10s\n", "TOTAL", NumberFormat.getCurrencyInstance(new Locale("pt", "BR")).format(totalDoPedido));
