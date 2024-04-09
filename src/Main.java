@@ -11,6 +11,7 @@ import java.util.Locale;
 public class Main {
     private static final List<Lanche>  lanches = new ArrayList<>();
     private static final List<Pedido> listaPedido = new ArrayList<>();
+    private static  int codigoLanche = 0;
     public static void main(String[] args) {
 
 
@@ -37,7 +38,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Insira o código do lanche que deseja: ");
-        int codigoLanche = solicitarNumero(scanner);
+        codigoLanche = solicitarNumero(scanner);
         procurarLanchePeloCodigo(codigoLanche);
 
         System.out.println("Insira a quantidade de lanches que deseja: ");
@@ -63,6 +64,7 @@ public class Main {
     }
 
     private static void procurarLanchePeloCodigo(int codigo) {
+        Scanner scanner = new Scanner(System.in);
         switch (codigo) {
             case 1:
                 System.out.println("Cachorro Quente");
@@ -81,7 +83,8 @@ public class Main {
                 return;
             default:
                 System.out.println("Código fora da lista de lanches. Por favor tente novamente:");
-                break;
+                codigoLanche = solicitarNumero(scanner);
+                procurarLanchePeloCodigo(codigoLanche);
         }
     }
 
@@ -90,8 +93,8 @@ public class Main {
             try {
                 return scanner.nextInt();
             } catch (Exception e) {
-                System.out.println("Por favor, insira um número válido.");
-                scanner.next(); // Limpar o buffer do scanner
+                System.out.println("Por favor, insira um número válido:");
+                solicitarNumero(scanner);
             }
         }
     }
@@ -100,7 +103,7 @@ public class Main {
         double totalDoPedido = 0;
         System.out.println("Deseja incluir mais um lanche nesse pedido? (Sim ou Não): ");
         String resposta = scanner.next().toLowerCase();
-        if (String.valueOf(resposta.charAt(0)).equals("n")) {
+        if (!String.valueOf(resposta.charAt(0)).equals("s")) {
             System.out.println("Pedido realizado com sucesso");
             System.out.println("*=*=*=*=*=*=* ~ PEDIDO ~ *=*=*=*=*=*=*");
             System.out.printf("%-10s %-20s %-10s\n", "Quantia", "Lanche", "Preço");
